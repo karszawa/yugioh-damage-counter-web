@@ -63,7 +63,4 @@ module.exports = {
       return config;
     }
   },
-  router: {
-    base: process.env.NODE_ENV === 'development' ? '/' : '/yugioh-damage-counter-web/'
-  }
 }
