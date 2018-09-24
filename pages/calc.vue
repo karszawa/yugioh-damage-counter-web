@@ -107,21 +107,21 @@ export default {
         case 'add':
           this.$store.commit('addLife', {
             playerIndex,
-            damage: Number(this.damage)
+            damage: Number(this.damage),
           });
           break;
 
         case 'sub':
           this.$store.commit('subLife', {
             playerIndex,
-            damage: Number(this.damage)
+            damage: Number(this.damage),
           });
           break;
 
         case 'div':
           this.$store.commit('divLife', {
             playerIndex,
-            damage: Number(this.damage)
+            r: Number(this.damage),
           });
           break;
 
