@@ -28,7 +28,7 @@ export default () => new Vuex.Store({
       }
     },
     diceRoll(state) {
-      state.dice = state.dice.map(() => Math.floor(Math.random() * 6) + 1);
+      state.dice = state.dice.map(() => Math.floor(Math.random() * 6));
     },
     increaseDice(state) {
       state.dice.push(1);
