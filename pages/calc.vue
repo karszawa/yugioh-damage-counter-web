@@ -6,7 +6,7 @@
       </span>
 
       <button class="back" @click="back">
-        Back ↩
+        Back ←
       </button>
     </div>
 
@@ -154,10 +154,10 @@ export default {
 button.back {
   font-size: 18px;
   padding: 8px 24px;
-  color: #4abdac;
+  color: white;
   border: none;
-  text-decoration: underline;
-  background-color: white;
+  background-color: rgba(74,189,172, 0.8);
+  border-radius: 100px;
 }
 
 .title {
