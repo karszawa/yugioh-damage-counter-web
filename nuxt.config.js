@@ -49,7 +49,9 @@ module.exports = {
   manifest: {
     name: 'YGO Calc',
     lang: 'en',
-    orientation: 'landscape',
+    orientation: 'portrait',
+    background_color: '#4ABDAC',
+    theme_color: '#4ABDAC',
   },
 
   /*
