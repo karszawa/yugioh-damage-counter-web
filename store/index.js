@@ -28,7 +28,7 @@ export default () => new Vuex.Store({
       }
     },
     diceRoll(state) {
-      state.dice = (new Array(state.dice.length)).map(() => Math.floor(Math.random() * 6) + 1);
+      state.dice = state.dice.map(() => Math.floor(Math.random() * 6) + 1);
     },
     increaseDice(state) {
       state.dice.push(1);
@@ -39,7 +39,7 @@ export default () => new Vuex.Store({
       }
     },
     coinToss(state) {
-      state.coins = (new Array(state.coins.length)).map(() => Math.floor(Math.random() * 2) + 1);
+      state.coins = state.coins.map(() => Math.floor(Math.random() * 2));
     },
     increaseCoin(state) {
       state.coins.push(1);

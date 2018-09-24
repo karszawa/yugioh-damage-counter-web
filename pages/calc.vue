@@ -154,8 +154,7 @@ export default {
 }
 
 button.back {
-  font-size: 18px;
-  padding: 8px 24px;
+  padding: 4px 24px;
   color: #333;
   border: none;
   background-color: rgba(255,255,255, 0.4);

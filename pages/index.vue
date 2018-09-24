@@ -108,7 +108,6 @@ section.header > button {
   border: none;
   border-radius: 12px;
   padding: 4px 24px;
-
 }
 
 section.life {
