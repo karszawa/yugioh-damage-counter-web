@@ -7,7 +7,7 @@
 <style>
 html
 {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -21,7 +21,12 @@ html
 {
   box-sizing: border-box;
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 .button--green
 {
