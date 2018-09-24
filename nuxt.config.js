@@ -18,7 +18,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/svg+xml', sizes: "any", href: '/favicon.svg' }
     ]
   },
 
@@ -43,7 +43,13 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/pwa'
   ],
+
+  manifest: {
+    name: 'YGO Calc',
+    lang: 'en',
+  },
 
   /*
   ** Build configuration
