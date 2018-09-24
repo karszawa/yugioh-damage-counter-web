@@ -143,7 +143,7 @@ export default {
   width: 100vw;
   display: grid;
   grid-template: 20% 20% 60% / 1fr;
-  background-color: white;
+  padding: 4px;
 }
 
 .header {
@@ -156,15 +156,15 @@ export default {
 button.back {
   font-size: 18px;
   padding: 8px 24px;
-  color: white;
+  color: #333;
   border: none;
-  background-color: rgba(74,189,172, 0.8);
+  background-color: rgba(255,255,255, 0.4);
   border-radius: 100px;
 }
 
 .title {
   font-size: 24px;
-  color: #4abdac;
+  color: white;
 }
 
 .result {
@@ -172,6 +172,8 @@ button.back {
   grid-template: 1fr / 1fr 1fr 200px 1fr;
   align-items: center;
   font-size: 32px;
+  background-color: white;
+  border-radius: 4px;
 }
 
 .player-name {
@@ -219,8 +221,8 @@ button.back {
 button.confirm {
   grid-area: confirm;
   font-size: 20px;
-  color: black;
-  background-color: rgba(255, 255, 255, 0.4);
+  color: white;
+  background-color: #f7b733;
   border: none;
   padding: 8px 24px;
   width: 150px;
