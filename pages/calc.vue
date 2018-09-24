@@ -140,8 +140,10 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
+  width: 100vw;
   display: grid;
   grid-template: 20% 20% 60% / 1fr;
+  background-color: white;
 }
 
 .header {
