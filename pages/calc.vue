@@ -190,7 +190,6 @@ button.back {
 }
 
 .result-value {
-  padding-left: 32px;
   opacity: 0.5;
 }
 
