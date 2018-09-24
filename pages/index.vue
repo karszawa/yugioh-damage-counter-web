@@ -171,7 +171,4 @@ section.links a:visited {
   color: white;
 }
 
-* {
-  font-family: 'Courier New', Courier, monospace;
-}
 </style>
