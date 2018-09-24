@@ -1,66 +1,177 @@
 <template>
   <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        yugioh-damage-counter-web
-      </h1>
-      <h2 class="subtitle">
-        My super-duper Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
+    <section class="header">
+      <div class="title">
+        YU-GI-OH! DAMAGE COUNTER
       </div>
-    </div>
+      <button @click="resetLife()">
+        Refresh
+      </button>
+    </section>
+
+    <section class="life">
+      <div class="point-wrapper" v-for="(player, index) in players" :key="index">
+        <div class="point">{{ player.life }}</div>
+
+        <div class="calc">
+          <nuxt-link
+            class="operator-link"
+            :to="{ path: 'calc', query: { playerIndex: index, operator: 'add' } }"
+          >
+            <font-awesome-icon icon="plus" />
+          </nuxt-link>
+          <nuxt-link
+            class="operator-link"
+            :to="{ path: 'calc', query: { playerIndex: index, operator: 'sub' } }"
+          >
+            <font-awesome-icon icon="minus" />
+          </nuxt-link>
+          <nuxt-link
+            class="operator-link"
+            :to="{ path: 'calc', query: { playerIndex: index, operator: 'div' } }"
+          >
+            <font-awesome-icon icon="divide" />
+          </nuxt-link>
+        </div>
+      </div>
+    </section>
+
+    <section class="links">
+      <nuxt-link to="/coin">
+        Coin
+      </nuxt-link>
+      <nuxt-link to="/dice">
+        Dice
+      </nuxt-link>
+    </section>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Vue from 'vue';
+import { mapState, mapMutations } from 'vuex';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faMinus,
+  faPlus,
+  faDivide,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faMinus);
+library.add(faPlus);
+library.add(faDivide);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 export default {
-  components: {
-    Logo
+  computed: mapState([ 'players' ]),
+  methods: {
+    ...mapMutations([ 'resetLife' ]),
+    addLife() {
+      // this.$store.
+    },
+    subLife() {
+
+    },
+    divLife() {
+
+    },
   }
 }
 </script>
 
-<style>
-
+<style scoped>
 .container
 {
-  min-height: 100vh;
+  display: grid;
+  height: 100vh;
+  grid-template: 20% 60% 20% / 1fr;
+  background-color: #4ABDAC;
+}
+
+section.header {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0 64px;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 24px;
+}
+
+section.header > button {
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  border-radius: 12px;
+  padding: 4px 24px;
+
+}
+
+section.life {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.point-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.point {
+  font-size: 64px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.calc {
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.operator-link {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.operator-link:visited {
+  color: white;
+}
+
+section.links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+section.links a {
+  color: white;
+  background-color: #f7b733;
+  width: 120px;
+  padding: 4px;
+  border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
 }
-.title
-{
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+
+section.links a:visited {
+  color: white;
 }
-.subtitle
-{
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-.links
-{
-  padding-top: 15px;
+
+* {
+  font-family: 'Courier New', Courier, monospace;
 }
 </style>

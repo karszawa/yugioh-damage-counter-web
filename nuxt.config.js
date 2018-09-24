@@ -3,11 +3,15 @@ const pkg = require('./package')
 module.exports = {
   mode: 'spa',
 
+  generate: {
+    fallback: true,
+  },
+
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'YU-GI-OH! Damage Counter',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
