@@ -25,6 +25,7 @@ html
 html,
 body {
   position: fixed;
+  overflow: hidden;
 }
 .button--green
 {

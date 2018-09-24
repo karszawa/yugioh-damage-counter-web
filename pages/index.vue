@@ -86,6 +86,7 @@ export default {
 {
   display: grid;
   height: 100vh;
+  width: 100vw;
   grid-template: 20% 60% 20% / 1fr;
   background-color: #4ABDAC;
 }
