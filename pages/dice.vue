@@ -27,44 +27,47 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
+import Component, { State, Mutation } from 'nuxt-class-component';
 import { mapState, mapMutations } from 'vuex';
-import Header from '~/components/Header';
+import Header from '~/components/Header.vue';
 
-export default {
+@Component({
   components: {
     Header,
-  },
-  data: () => ({
-    tossing: false,
-  }),
-  computed: {
-    ...mapState([ 'dice' ])
-  },
-  methods: {
-    back() {
+  }
+})
+export default class Dice extends Vue {
+  @State dice;
+  @Mutation increaseDice;
+  @Mutation decreaseDice;
+  @Mutation __diceRoll;
+
+  tossing: boolean = false;
+
+  back() {
       this.$router.go(-1);
-    },
-    diceRoll() {
+  }
+
+  diceRoll() {
       this.tossing = true;
       setTimeout(() => this.tossing = false, 500);
-      this.$store.commit('diceRoll');
-    },
-    numberToString(n) {
-      switch (n) {
-        case 1: return 'one';
-        case 2: return 'two';
-        case 3: return 'three';
-        case 4: return 'four';
-        case 5: return 'five';
-        case 6: return 'six';
-        return null;
-      }
-    },
-    ...mapMutations([ 'increaseDice', 'decreaseDice' ]),
+      this.__diceRoll();
   }
-};
+
+  numberToString(n) {
+    switch (n) {
+      case 1: return 'one';
+      case 2: return 'two';
+      case 3: return 'three';
+      case 4: return 'four';
+      case 5: return 'five';
+      case 6: return 'six';
+      return null;
+    }
+  }
+}
 </script>
 
 <style scoped>
