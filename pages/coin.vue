@@ -27,44 +27,35 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
+import Component, { State, Mutation } from 'nuxt-class-component';
 import { mapState, mapMutations } from 'vuex';
-import Header from '~/components/Header';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faMinus,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Header from '~/components/Header.vue';
 
-library.add(faMinus);
-library.add(faPlus);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-export default {
+@Component({
   components: {
-    Header,
-  },
-  data: () => ({
-    tossing: false,
-  }),
-  computed: {
-    ...mapState([ 'coins' ])
-  },
-  methods: {
-    back() {
-      this.$router.go(-1);
-    },
-    coinToss() {
-      this.tossing = true;
-      setTimeout(() => this.tossing = false, 500);
-      this.$store.commit('coinToss');
-    },
-    ...mapMutations([ 'increaseCoin', 'decreaseCoin' ]),
+    Header
   }
-};
+})
+export default class Coin extends Vue {
+  @State coins;
+  @Mutation increaseCoin;
+  @Mutation decreaseCoin;
+  @Mutation __CoinToss;
+
+  tossing: boolean = false;
+
+  back() {
+    this.$router.go(-1);
+  }
+
+  coinToss() {
+    this.tossing = true;
+    setTimeout(() => this.tossing = false, 500);
+    this.__CoinToss();
+  }
+}
 </script>
 
 <style scoped>
