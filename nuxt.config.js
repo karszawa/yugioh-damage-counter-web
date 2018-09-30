@@ -64,6 +64,15 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      for (let rule of config.module.rules) {
+        if (rule.test.test('.css')) {
+          config.module.rules.push({
+            test: /\.postcss/,
+            oneOf: rule.oneOf
+          });
+        }
+      }
+
       return config;
     }
   },
