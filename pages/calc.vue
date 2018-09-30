@@ -14,7 +14,7 @@
       <span class="player-name">Player {{ playerIndex }}</span>
       <span class="original-life">{{ life }} {{ operator || '?' }}</span>
       <span class="damage">{{ damage }}</span>
-      <span class="result-value">&nbsp; = {{ resultValue || '?' }}</span>
+      <span class="result-value">= {{ resultValue || '?' }}</span>
     </div>
 
     <div class="numbers-wrapper">
@@ -40,99 +40,100 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'nuxt-class-component';
 import { mapState } from 'vuex';
 
-export default {
-  data: () => ({
-    damage: '0',
-  }),
-  computed: {
-    playerIndex() {
-      return Number(this.$route.query.playerIndex) + 1
-    },
-    life() {
-      return this.$store.state.players[this.$route.query.playerIndex].life;
-    },
-    operator() {
-      switch (this.$route.query.operator) {
-        case 'add': return '+';
-        case 'sub': return '-';
-        case 'div': return '÷';
-        default: return null;
-      }
-    },
-    operators: () => [
+@Component
+export default class Calc extends Vue {
+  damage: number = 0;
+
+  get playerIndex() {
+    return Number(this.$route.query.playerIndex) + 1
+  }
+
+  get life() {
+    return this.$store.state.players[this.$route.query.playerIndex].life;
+  }
+
+  get operator() {
+    switch (this.$route.query.operator) {
+      case 'add': return '+';
+      case 'sub': return '-';
+      case 'div': return '÷';
+      default: return null;
+    }
+  }
+
+  get operators() {
+    return [
         '1', '2', '3', '0',
         '4', '5', '6', '00',
         '7', '8', '9', '000',
-    ],
-    resultValue() {
-      switch (this.$route.query.operator) {
-        case 'add': return this.life + Number(this.damage);
-        case 'sub': return this.life - Number(this.damage);
-        case 'div': return this.life / Number(this.damage);
-        default: return null;
-      }
+    ];
+  }
+
+  get resultValue() {
+    switch (this.$route.query.operator) {
+      case 'add': return this.life + Number(this.damage);
+      case 'sub': return this.life - Number(this.damage);
+      case 'div': return this.life / Number(this.damage);
+      default: return null;
     }
-  },
-  mounted() {
-  },
-  methods: {
-    onOperatorPressed(item) {
-      if (item === 'back') {
-        if (this.damage === '0') {
-          return;
-        } else if (this.damage.length === 1) {
-          this.damage = '0';
-        } else {
-          this.damage = this.damage.slice(0, this.damage.length - 1);
-        }
-      } else if (!isNaN(Number(item))) {
-        if (this.damage === '0') {
-          if (Number(item) === 0) {
-            return;
-          }
+  }
 
-          this.damage = '';
-        }
-
-        this.damage += item;
+  onOperatorPressed(item: string) {
+    if (item === 'back') {
+      if (this.damage === 0) {
+        return;
+      } else if (0 <= this.damage && this.damage < 10) {
+        this.damage = 0;
+      } else {
+        this.damage = Math.floor(this.damage / 10);
       }
-    },
-    confirm() {
-      const playerIndex = this.$route.query.playerIndex;
-
-      switch (this.$route.query.operator) {
-        case 'add':
-          this.$store.commit('addLife', {
-            playerIndex,
-            damage: Number(this.damage),
-          });
-          break;
-
-        case 'sub':
-          this.$store.commit('subLife', {
-            playerIndex,
-            damage: Number(this.damage),
-          });
-          break;
-
-        case 'div':
-          this.$store.commit('divLife', {
-            playerIndex,
-            r: Number(this.damage),
-          });
-          break;
-
-        default: break;
+    } else if (Number(item) === 0) {
+      for (let _ of new Array(item.length)) {
+        this.damage *= 10;
       }
+    } else if (!isNaN(Number(item))) {
+      this.damage = this.damage * 10 + Number(item);
+    }
+  }
 
-      this.$router.push('/');
-    },
-    back() {
-     this.$router.go(-1);
-    },
+  confirm() {
+    const playerIndex = this.$route.query.playerIndex;
+
+    switch (this.$route.query.operator) {
+      case 'add':
+        this.$store.commit('addLife', {
+          playerIndex,
+          damage: Number(this.damage),
+        });
+        break;
+
+      case 'sub':
+        this.$store.commit('subLife', {
+          playerIndex,
+          damage: Number(this.damage),
+        });
+        break;
+
+      case 'div':
+        this.$store.commit('divLife', {
+          playerIndex,
+          r: Number(this.damage),
+        });
+        break;
+
+      default: break;
+    }
+
+    this.$router.push('/');
+  }
+
+  back() {
+    this.$router.go(-1);
   }
 };
 </script>
@@ -192,6 +193,8 @@ button.back {
 
 .result-value {
   opacity: 0.5;
+  white-space: nowrap;
+  padding-left: 16px;
 }
 
 .numbers-wrapper {
