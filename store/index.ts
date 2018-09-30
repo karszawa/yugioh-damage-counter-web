@@ -1,6 +1,18 @@
 import Vuex from 'vuex';
 
-export default () => new Vuex.Store({
+type Player = {
+  life: number,
+};
+
+type State = {
+  players: Player[],
+  dice: number[],
+  coins: number[],
+  targetPlayerIndex: number | null,
+  operator: string | null,
+};
+
+export default () => new Vuex.Store<State>({
   state: {
     players: [
       { life: 8000 },
@@ -13,7 +25,7 @@ export default () => new Vuex.Store({
   },
 
   mutations: {
-    addLife(state, { playerIndex, damage }) {
+    addLife(state: State, { playerIndex, damage }: { playerIndex: number, damage: number}) {
       state.players[playerIndex].life += damage;
     },
     subLife(state, { playerIndex, damage }) {

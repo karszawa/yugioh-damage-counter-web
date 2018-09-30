@@ -49,8 +49,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'nuxt-class-component';
-import { State, Mutation } from 'vuex-class';
+import Component, { State, Mutation } from 'nuxt-class-component';
 
 @Component
 export default class Index extends Vue {

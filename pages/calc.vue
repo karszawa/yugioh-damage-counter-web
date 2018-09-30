@@ -14,12 +14,12 @@
       <span class="player-name">Player {{ playerIndex }}</span>
       <span class="original-life">{{ life }} {{ operator || '?' }}</span>
       <span class="damage">{{ damage }}</span>
-      <span class="result-value">= {{ resultValue || '?' }}</span>
+      <span class="result-value">= {{ resultValue }}</span>
     </div>
 
     <div class="numbers-wrapper">
       <div
-        v-for="(item, index) in operators" :key="index"
+        v-for="(item, index) in numbers" :key="index"
         @click="onOperatorPressed(item)"
         class="number"
         :style="{ 'grid-area': 'n' + item }"
@@ -42,12 +42,21 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'nuxt-class-component';
-import { mapState } from 'vuex';
+import Component, { Mutation } from 'nuxt-class-component';
 
 @Component
 export default class Calc extends Vue {
+  @Mutation addLife;
+  @Mutation subLife;
+  @Mutation divLife;
+
   damage: number = 0;
+
+  mounted() {
+    if ([ 'add', 'sub', 'div' ].indexOf(this.$route.query.operator) === undefined) {
+      this.$router.push('/');
+    }
+  }
 
   get playerIndex() {
     return Number(this.$route.query.playerIndex) + 1
@@ -66,7 +75,7 @@ export default class Calc extends Vue {
     }
   }
 
-  get operators() {
+  get numbers() {
     return [
         '1', '2', '3', '0',
         '4', '5', '6', '00',
@@ -74,12 +83,16 @@ export default class Calc extends Vue {
     ];
   }
 
-  get resultValue() {
+  get resultValue(): string {
+    if (!Number.isInteger(this.damage)) {
+      return '?';
+    }
+
     switch (this.$route.query.operator) {
-      case 'add': return this.life + Number(this.damage);
-      case 'sub': return this.life - Number(this.damage);
-      case 'div': return this.life / Number(this.damage);
-      default: return null;
+      case 'add': return String(this.life + Number(this.damage));
+      case 'sub': return String(this.life - Number(this.damage));
+      case 'div': return String(this.life / Number(this.damage));
+      default: return '?';
     }
   }
 
@@ -96,7 +109,7 @@ export default class Calc extends Vue {
       for (let _ of new Array(item.length)) {
         this.damage *= 10;
       }
-    } else if (!isNaN(Number(item))) {
+    } else if (Number.isInteger(Number(item))) {
       this.damage = this.damage * 10 + Number(item);
     }
   }
@@ -104,26 +117,22 @@ export default class Calc extends Vue {
   confirm() {
     const playerIndex = this.$route.query.playerIndex;
 
+    if (!Number.isInteger(Number(playerIndex))) {
+      this.$router.push('/');
+      return;
+    }
+
     switch (this.$route.query.operator) {
       case 'add':
-        this.$store.commit('addLife', {
-          playerIndex,
-          damage: Number(this.damage),
-        });
+        this.addLife({ playerIndex, damage: this.damage });
         break;
 
       case 'sub':
-        this.$store.commit('subLife', {
-          playerIndex,
-          damage: Number(this.damage),
-        });
+        this.subLife({ playerIndex, damage: this.damage });
         break;
 
       case 'div':
-        this.$store.commit('divLife', {
-          playerIndex,
-          r: Number(this.damage),
-        });
+        this.divLife({ playerIndex, r: this.damage });
         break;
 
       default: break;
