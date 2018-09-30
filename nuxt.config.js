@@ -37,13 +37,15 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-fa-icons.ts',
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '~/modules/typescript.js',
   ],
 
   manifest: {

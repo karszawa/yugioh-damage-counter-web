@@ -31,29 +31,6 @@
 import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
 import Header from '~/components/Header';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faMinus,
-  faPlus,
-  faDiceOne,
-  faDiceTwo,
-  faDiceThree,
-  faDiceFour,
-  faDiceFive,
-  faDiceSix,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(faMinus);
-library.add(faPlus);
-library.add(faDiceOne);
-library.add(faDiceTwo);
-library.add(faDiceThree);
-library.add(faDiceFour);
-library.add(faDiceFive);
-library.add(faDiceSix);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 export default {
   components: {

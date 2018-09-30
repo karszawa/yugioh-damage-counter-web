@@ -113,13 +113,15 @@ export default {
   justify-content: center;
   align-items: center;
   transition-property: all;
-  transition-duration: 0.5s;
+  transition-duration: 1s;
 }
 
 .coins > .coin.tossing {
-  width: 30px;
-  height: 30px;
-  color: white;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  opacity: 0;
+  transform: rotateX(720deg);
 }
 
 .operators {

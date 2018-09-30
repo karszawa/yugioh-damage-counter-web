@@ -47,37 +47,15 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
-import { mapState, mapMutations } from 'vuex';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faMinus,
-  faPlus,
-  faDivide,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Component from 'nuxt-class-component';
+import { State, Mutation } from 'vuex-class';
 
-library.add(faMinus);
-library.add(faPlus);
-library.add(faDivide);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-export default {
-  computed: mapState([ 'players' ]),
-  methods: {
-    ...mapMutations([ 'resetLife' ]),
-    addLife() {
-      // this.$store.
-    },
-    subLife() {
-
-    },
-    divLife() {
-
-    },
-  }
+@Component
+export default class Index extends Vue {
+  @State players;
+  @Mutation resetLife;
 }
 </script>
 
