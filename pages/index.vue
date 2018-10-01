@@ -1,8 +1,6 @@
 <template lang="pug">
   section.container
-    section.header
-      .title YU-GI-OH! DAMAGE COUNTER
-
+    Header
       button(@click="resetLife()") Refresh
 
     section.life
@@ -30,8 +28,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component, { State, Mutation } from 'nuxt-class-component';
+import Header from '~/components/Header.vue';
 
-@Component
+@Component({
+  components: {
+    Header,
+  }
+})
 export default class Index extends Vue {
   @State players;
   @Mutation resetLife;
@@ -48,17 +51,7 @@ export default class Index extends Vue {
   background-color: #4ABDAC;
 }
 
-section.header {
-  display: flex;
-  align-items: center;
-  color: white;
-  padding: 0 64px;
-  justify-content: space-between;
-
-  .title {
-    font-size: 24px;
-  }
-
+Header {
   button {
     color: #333;
     background-color: rgba(255, 255, 255, 0.4);
