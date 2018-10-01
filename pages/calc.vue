@@ -53,7 +53,7 @@ export default class Calc extends Vue {
   damage: number = 0;
 
   mounted() {
-    if ([ 'add', 'sub', 'div' ].indexOf(this.$route.query.operator) === undefined) {
+    if (this.operator === null) {
       this.$router.push('/');
     }
   }
@@ -63,7 +63,8 @@ export default class Calc extends Vue {
   }
 
   get life() {
-    return this.$store.state.players[this.$route.query.playerIndex].life;
+    const player = this.$store.state.players[this.$route.query.playerIndex];
+    return player === undefined ? 0 : player.life || 0;
   }
 
   get operator() {
