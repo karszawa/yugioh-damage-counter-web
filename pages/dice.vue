@@ -109,7 +109,8 @@ export default class Dice extends Vue {
     transition-duration: 1s;
 
     &.rolling {
-      transform: rotateX(720deg);
+      opacity: 0;
+      transform: rotateZ(7200deg);
     }
   }
 }
