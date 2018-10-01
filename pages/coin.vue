@@ -42,7 +42,7 @@ export default class Coin extends Vue {
         font-awesome-icon(icon="minus")
 
       .coin-wrapper(v-for="(item, index) in coins" :key="index")
-        .coin(:class="tossing ? 'tossing' : ''")
+        .coin(:class="tossing ? 'tossing' : ''" @click="coinToss")
           | {{ item === 0 ? 'F' : 'B' }}
 
       .increase(@click="increaseCoin")

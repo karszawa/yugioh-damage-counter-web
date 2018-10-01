@@ -10,6 +10,7 @@
       .die(
         :class="rolling ? 'rolling' : ''"
         v-for="(item, index) in dice" :key="index"
+        @click="diceRoll"
       )
         font-awesome-icon(:icon="`dice-${numberToString(item + 1)}`")
 
