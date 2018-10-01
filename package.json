@@ -1,7 +1,7 @@
 {
   "name": "yugioh-damage-counter-web",
   "version": "1.0.0",
-  "description": "My super-duper Nuxt.js project",
+  "description": "A free YuGiOh! Damage Counter for iPhone, iPad, and Android",
   "author": "Hiroaki KARASAWA",
   "private": true,
   "scripts": {
