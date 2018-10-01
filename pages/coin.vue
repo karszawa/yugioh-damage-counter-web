@@ -23,8 +23,11 @@ export default class Coin extends Vue {
 
   coinToss() {
     this.tossing = true;
-    setTimeout(() => this.tossing = false, 500);
-    this.__coinToss();
+
+    setTimeout(() => {
+      this.tossing = false
+      this.__coinToss();
+    }, 500);
   }
 }
 </script>
@@ -34,14 +37,13 @@ export default class Coin extends Vue {
     Header
       button.back(@click="back") Back←
 
-    .coins
+    main
       .decrease(@click="decreaseCoin")
         font-awesome-icon(icon="minus")
 
-      .coin(
-        :class="tossing ? 'tossing' : ''"
-        v-for="(item, index) in coins" :key="index"
-      ) {{ item === 0 ? 'F' : 'B' }}
+      .coin-wrapper(v-for="(item, index) in coins" :key="index")
+        .coin(:class="tossing ? 'tossing' : ''")
+          | {{ item === 0 ? 'F' : 'B' }}
 
       .increase(@click="increaseCoin")
         font-awesome-icon(icon="plus")
@@ -66,7 +68,7 @@ export default class Coin extends Vue {
   padding: 4px 24px;
 }
 
-.coins {
+main {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,6 +85,14 @@ export default class Coin extends Vue {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .coin-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
   }
 
   .coin {

@@ -8,7 +8,7 @@
         font-awesome-icon(icon="minus")
 
       .die(
-        :class="tossing ? 'tossing' : ''"
+        :class="rolling ? 'rolling' : ''"
         v-for="(item, index) in dice" :key="index"
       )
         font-awesome-icon(:icon="`dice-${numberToString(item + 1)}`")
@@ -37,16 +37,19 @@ export default class Dice extends Vue {
   @Mutation decreaseDice;
   @Mutation('diceRoll') __diceRoll;
 
-  tossing: boolean = false;
+  rolling: boolean = false;
 
   back() {
       this.$router.go(-1);
   }
 
   diceRoll() {
-      this.tossing = true;
-      setTimeout(() => this.tossing = false, 500);
-      this.__diceRoll();
+      this.rolling = true;
+
+      setTimeout(() => {
+        this.__diceRoll();
+        this.rolling = false
+      }, 500);
   }
 
   numberToString(n) {
@@ -101,10 +104,11 @@ export default class Dice extends Vue {
   .die {
     color: white;
     font-size: 64px;
-    transition: padding-bottom 0.5s cubic-bezier(0.1, 0.5, 0.3, 0.8);
+    transition-property: all;
+    transition-duration: 1s;
 
-    &.tossing {
-      padding-bottom: 120px;
+    &.rolling {
+      transform: rotateX(720deg);
     }
   }
 }
