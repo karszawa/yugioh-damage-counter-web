@@ -1,30 +1,23 @@
-<template>
-  <div class="container">
-    <Header>
-      <button class="back" @click="back">Back←</button>
-    </Header>
+<template lang="pug">
+  .container
+    Header
+      button.back(@click="back") Back←
 
-    <div class="dice">
-      <div class="decrease" @click="decreaseDice">
-        <font-awesome-icon icon="minus"/>
-      </div>
+    .dice
+      .decrease(@click="decreaseDice")
+        font-awesome-icon(icon="minus")
 
-      <div
-        class="die" :class="tossing ? 'tossing' : ''"
+      .die(
+        :class="tossing ? 'tossing' : ''"
         v-for="(item, index) in dice" :key="index"
-      >
-        <font-awesome-icon :icon="`dice-${numberToString(item + 1)}`" />
-      </div>
+      )
+        font-awesome-icon(:icon="`dice-${numberToString(item + 1)}`")
 
-      <div class="increase" @click="increaseDice">
-        <font-awesome-icon icon="plus" />
-      </div>
-    </div>
+      .increase(@click="increaseDice")
+        font-awesome-icon(icon="plus")
 
-    <div class="operators">
-      <button @click="diceRoll">Roll</button>
-    </div>
-  </div>
+    .operators
+      button(@click="diceRoll") Roll
 </template>
 
 <script lang="ts">
@@ -42,7 +35,7 @@ export default class Dice extends Vue {
   @State dice;
   @Mutation increaseDice;
   @Mutation decreaseDice;
-  @Mutation __diceRoll;
+  @Mutation('diceRoll') __diceRoll;
 
   tossing: boolean = false;
 
@@ -70,7 +63,7 @@ export default class Dice extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 .container {
   height: 100vh;
   width: 100vw;
@@ -91,53 +84,53 @@ export default class Dice extends Vue {
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-}
 
-.dice > .increase, .dice > .decrease {
-  color: white;
-  font-size: 24px;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 12px;
-  border-radius: 8px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .increase, .decrease {
+    color: white;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.dice > .die {
-  color: white;
-  font-size: 64px;
-  transition: padding-bottom 0.5s cubic-bezier(0.1, 0.5, 0.3, 0.8);
-}
+  .die {
+    color: white;
+    font-size: 64px;
+    transition: padding-bottom 0.5s cubic-bezier(0.1, 0.5, 0.3, 0.8);
 
-.dice > .die.tossing {
-  padding-bottom: 120px;
+    &.tossing {
+      padding-bottom: 120px;
+    }
+  }
 }
 
 .operators {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.operators > button {
-  color: white;
-  background-color: #f7b733;
-  width: 160px;
-  padding: 10px;
-  border-radius: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  font-size: 24px;
-}
+  button {
+    color: white;
+    background-color: #f7b733;
+    width: 160px;
+    padding: 10px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    font-size: 24px;
 
-.operators > button:focus {
-  outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
 }
 </style>
